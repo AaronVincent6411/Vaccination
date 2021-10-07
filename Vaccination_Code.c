@@ -8,19 +8,15 @@
   {
    int g=getmaxx()/2;
    int h=getmaxy()/2;
-   for(i=0;i<3;i++)
+   for(j=20;j<25;j++)
     {
-     for(j=20;j<25;j++)
-      {
-       setcolor(7);        
-       for(k=0;k<360;k++)
-        {
-         delay(1);
-         arc(g,h,0,k,j-10);
-        }
-       break;
-      }
-    } 
+      setcolor(7);        
+      for(k=0;k<360;k++)
+       {
+        delay(1);
+        arc(g,h,0,k,j-10);
+       }
+    }
   }
 
  void Welcome()
