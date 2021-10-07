@@ -17,6 +17,8 @@
         arc(g,h,0,k,j-10);
        }
     }
+   delay(800);
+   cleardevice();
   }
 
  void Welcome()
@@ -26,16 +28,10 @@
     setcolor(7);
     outtextxy(200,100,"Loading.");
     Loading();
-    delay(800);
-    cleardevice();
     outtextxy(200,100,"Loading..");
     Loading();
-    delay(800);
-    cleardevice();
     outtextxy(200,100,"Loading...");
     Loading();
-    delay(800);
-    cleardevice();
     outtextxy(200,150,"\t\tWelcome");
     delay(1000);
     cleardevice();
