@@ -6,7 +6,8 @@
 
  void Admin()
   {
-
+    cleardevice();
+    outtextxy(200,100,"Welcome Aministrator");
   }
 
  void User()
