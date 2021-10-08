@@ -21,7 +21,7 @@
     setbkcolor(EGA_BLUE);
     setcolor(WHITE);
     settextstyle(7,0,7);
-    outtextxy(200,50,"Main Menu");
+    outtextxy(150,50,"Main Menu");
     settextstyle(6,0,2);
     outtextxy(200,150,"1.Administrator");
     outtextxy(200,200,"2.User");
@@ -51,7 +51,7 @@
         arc(g,h,0,k,j-10);
        }
     }
-   delay(800);
+   delay(400);
    cleardevice();
   }
 
