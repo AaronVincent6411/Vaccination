@@ -2,7 +2,40 @@
 #include<dos.h>
 #include<graphics.h>
 
- int i,j,k;
+  int i,j,k;
+
+ void Admin()
+  {
+
+  }
+
+ void User()
+  {
+
+  }
+
+ void Display()
+  {
+    int op;
+    setbkcolor(EGA_BLUE);
+    setcolor(RED);
+    settextstyle(3,0,7);
+    outtextxy(200,50,"Main Menu");
+    settextstyle(6,0,2);
+    outtextxy(200,100,"1.Administrator");
+    outtextxy(200,150,"2.User");
+    outtextxy(200,200,"3.Exit");
+    scanf("%d",op);
+    switch(op)
+     {
+       case 1:Admin();
+              break;
+       case 2:User();
+              break;
+       default:exit(0);
+              break;
+     }
+  }
 
  void Loading()
   {
@@ -35,6 +68,7 @@
     outtextxy(200,150,"\t\tWelcome");
     delay(1000);
     cleardevice();
+    Display();
   }
 
  int main()
