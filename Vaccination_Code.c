@@ -19,14 +19,14 @@
   {
     int op;
     setbkcolor(EGA_BLUE);
-    setcolor(RED);
-    settextstyle(3,0,7);
+    setcolor(WHITE);
+    settextstyle(7,0,7);
     outtextxy(200,50,"Main Menu");
     settextstyle(6,0,2);
-    outtextxy(200,100,"1.Administrator");
-    outtextxy(200,150,"2.User");
-    outtextxy(200,200,"3.Exit");
-    scanf("%d",op);
+    outtextxy(200,150,"1.Administrator");
+    outtextxy(200,200,"2.User");
+    outtextxy(200,250,"3.Exit");
+    scanf("%d",&op);
     switch(op)
      {
        case 1:Admin();
