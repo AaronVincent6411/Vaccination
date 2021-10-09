@@ -3,6 +3,15 @@
 #include<graphics.h>
 
   int i,j,k;
+  
+ struct Details 
+  {
+  	int ID;
+  	char Name[20];
+  	char Address[30];
+  	int DT1,DT2;
+  	unsigned int DOB;
+  }D;
 
  void Admin()
   {
