@@ -15,8 +15,38 @@
 
  void Admin()
   {
+    char Admin_Name[20],Password[10];
     cleardevice();
-    outtextxy(200,100,"Welcome Aministrator");
+    settextstyle(6,0,5);
+    outtextxy(200,100,"Welcome Administrator");
+    delay(1000);
+    cleardevice();
+    settextstyle(5,0,5);
+    outtextxy(200,100,"Enter the Username");
+    scanf("%s",Admin_Name);
+    if(strcmp(Admin_Name,"AAAE")==0)
+     {
+       for(i=0;i<2;i++)
+        {
+          cleardevice();
+          settextstyle(5,0,5);
+          outtextxy(200,100,"Enter the Password");
+          scanf("%s",Password);
+          if(strcmp(Password,"1a2b3c4d")==0)
+           {
+          
+           }
+          else
+           {
+             cleardevice();
+             settextstyle(6,0,5);
+             outtextxy(200,100,"Wrong Password");
+             if(i==0)
+              outtextxy(200,150,"Try Again");
+             delay(1000);
+           }
+        }
+     }
   }
 
  void User()
