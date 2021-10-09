@@ -158,20 +158,33 @@
  {
    outtextxy(200,100"\n WRONG INPUT");
 }
-outtextxy(200,100"\n ENTER ANY KEY TO CONTINUE");
+outtextxy(200,100"\n Enter any key to continue");
   }
   
 void del()
 {
-	int b,i;
-	outtextxy(200,100"\n ENTER THE VACCINATION ID TO BE DELETED");
-	scanf("%d",&b);
+	int i;
+	char b;
+	outtextxy(200,100"\n Enter the name to be deleted ");
+	scanf("%c",&b);
 	for( i=0;i<n;i++)
-	if d.ID[i]!=b
 	{
-		
-	}
-}
+	if d.Name[i]==b
+	{
+		if (strcmp(d.Name[i],b ) == 0) 
+                {
+                    strcpy(d[i].Name, nullStr); 
+                    strcpy(d[i].ID, nullStr); 
+                    strcpy(d[i].Address, nullStr); 
+                    printf("The ID is Removed.\n");
+                    n--;
+                    break;
+                }
+            }
+        }
+        
+    }
+    a
 
 
 
