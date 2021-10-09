@@ -9,7 +9,7 @@
   	int ID;
   	char Name[20];
   	char Address[30];
-  	int DT1,DT2;
+  	char DT1,DT2;
   	unsigned int DOB;
   }D;
 
@@ -89,3 +89,89 @@
     initgraph(&gdriver,&gmode,"C:\\Turboc3\\BGI");
     Welcome();
   }
+  
+  void search()
+  {
+  	int cho,i, vId,sch;
+  	
+  	outtextxy(200,100"CHOOSE ANY FROM BELOW");
+  	outtextxy(200,100"\n 1.VACCINATION ID");
+  	outtextxy(200,100"\n");
+  	outtextxy(200,100"\n 2.NAME");
+  	outtextxy(200,100"\n");
+  	outtextxy(200,100"ENTER YOUR OPTION AS 1 OR 2");
+  	scanf("%d",&cho);
+  	
+  	if (cho==1)
+  	outtextxy(200,100"Enter the vaccination Id");
+  	scanf("%d",&vId);
+  	
+  	for( i=0;i<n;i++)
+  		if vId==d.ID[i]
+  	{
+  		outtextxy(200,100"\n%c%d%c",d.name[i],d.ID[i],d.address[i]);
+	  }
+  	
+  	else if (cho==2)
+  		outtextxy(200,100"\nEnter Name");
+  		scanf("%c",&sch);
+  		for(i=0,i<n,i++)
+  		{
+  			if(strcmp(d[i],sch)==0)
+  			{
+  				outtextxy(200,100"\n%c%d%c",d.name[i],d.ID[i],d.address[i]);
+			  }  
+	else
+	outtextxy(200,100"\n WRONG INPUT);		
+  	}
+  outtextxy(200,100"\n ENTER ANY KEY TO CONTINUE");		
+  }
+  
+  
+  void display()
+  {
+  	int a,i;
+  	outtextxy(200,100"CHOOSE FROM BELOW");
+  	outtextxy(200,100"\n 1.PARTIALLY VACCINATED LIST");
+  	outtextxy(200,100"\n");
+  	outtextxy(200,100"\n 2.FULLY VACCINATED LIST");
+  	outtextxy(200,100"\n");
+  	outtextxy(200,100"ENTER YOUR OPTION AS 1 OR 2");
+  	scanf("%d",&a);
+  	if a==1
+  	outtextxy(200,100"\n PARTIALLY VACCINATED LIST GIVEN BELOW");
+  	for( i=0;i<n;i++)
+  		if DT1[i]!=/DT2[i]
+  	{
+  		outtextxy(200,100"\n%c%d%c",d.name[i],d.ID[i],d.address[i]);
+  		break
+	  }
+	else if a==2
+	outtextxy(200,100"\n FULLY VACCINATED LIST GIVEN BELOW");
+  	for( i=0;i<n;i++)
+  	{
+	  
+  	else if DT1[i]=DT2[i]
+  	outtextxy(200,100"\n%c%d%c",d.name[i],d.ID[i],d.address[i]);
+  }
+  else 
+ {
+   outtextxy(200,100"\n WRONG INPUT");
+}
+outtextxy(200,100"\n ENTER ANY KEY TO CONTINUE");
+  }
+  
+void del()
+{
+	int b,i;
+	outtextxy(200,100"\n ENTER THE VACCINATION ID TO BE DELETED");
+	scanf("%d",&b);
+	for( i=0;i<n;i++)
+	if d.ID[i]!=b
+	{
+		
+	}
+}
+
+
+
