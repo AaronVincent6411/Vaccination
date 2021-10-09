@@ -9,8 +9,8 @@
   	int ID;
   	char Name[20];
   	char Address[30];
-  	int DT1,DT2;
-  	unsigned int DOB;
+  	char DT1,DT2;
+  	char DOB[15];
   }D[10];
   
  void Admin()
