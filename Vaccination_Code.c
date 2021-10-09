@@ -17,6 +17,7 @@
   {
     cleardevice();
     outtextxy(200,100,"Welcome Aministrator");
+    delay(100);
   }
 
  void User()
