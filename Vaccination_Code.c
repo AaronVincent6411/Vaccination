@@ -6,15 +6,61 @@
   
  struct Details 
   {
-  	int ID;
+  	char ID[5];
   	char Name[20];
   	char Address[30];
-  	char DT1,DT2;
-  	char DOB[15];
+  	char DT1[3],DT2[3];
+  	int dd,mm,yy;
   }D[10];
   
+ void Write()
+  {
+    FILE *ptr;
+    int num;
+    ptr=fopen("vaccine_details.bin","wb+");
+    printf("Enter the number of vaccinators :");
+    scanf("%d",&num);
+    for(i=0;i<num;i++)
+     {
+       printf("Enter the ID number :");
+       scanf("%s",D[i].ID);
+       printf("Enter the name :");
+       scanf("%*c%[^\n]",D[i].Name);
+       printf("Enter the House Name :");
+       scanf("%*c%[^\n]",D[i].Address);
+       printf("Enter the Birth Of Date (DD/MM/YYYY) :");
+       scanf("%d%d%d",&D[i].dd,&D[i].mm,&D[i].yy);
+       printf("Have you taken the first dose(Y/N) :");
+       scanf("%s",D[i].DT1);
+       printf("Have you taken the second dose(Y/N) :");
+       scanf("%s",D[i].DT2);
+       fwrite(&D[i],sizeof(D[i]),1,ptr);
+     }
+    fclose(ptr);
+  }
+ 
+ void Read()
+  {
+	char ch3;
+    FILE *ptr;
+    ptr=fopen("vaccine_details.bin","rb+");
+    i=0;
+    printf("ID\t Name\t\tHouse Name\t  DOB\t   First Dose\t  Second Dose\n");
+    while(feof(ptr)==0)
+     {
+   	   i++;
+   	   fread(&D[i],sizeof(D[i]),1,ptr);
+       printf("%s\t%s\t\t%s\t%d/%d/%d\t%s\t\t%s\n",D[i].ID,D[i].Name,D[i].Address,D[i].dd,D[i].mm,D[i].yy,D[i].DT1,D[i].DT2);
+     }  
+    fclose(ptr);
+    printf("Press Any key\n");
+	scanf("%s",&ch3);
+  }
+
  void Admin()
   {
+    int op1;
+    char ch1,ch2;
     char Admin_Name[20],Password[10];
     cleardevice();
     settextstyle(6,0,5);
@@ -34,7 +80,36 @@
           scanf("%s",Password);
           if(strcmp(Password,"1a2b3c4d")==0)
            {
-          
+             do
+              {
+                cleardevice();
+                settextstyle(6,0,5);
+                outtextxy(200,50,"Main Menu");
+                outtextxy(200,100,"1.Write Data");
+                outtextxy(200,150,"2.Display Details");
+                outtextxy(200,200,"3.Exit");
+                scanf("%d",&op1);
+			       	  settextstyle(6,0,2);
+                cleardevice();
+                switch(op1)
+                 {
+                   case 1:outtextxy(100,100,"Do You Wish to Continue\n Existing Data will be erased (Y/n)");
+                          scanf("%s",&ch2);
+						  cleardevice();
+                          if(ch2=='y'||ch2=='Y')
+                           Write();
+                          break;
+                   case 2:Read();
+                          break;
+                   case 3:exit(0);
+                 }
+                delay(1000);
+                cleardevice();
+                outtextxy(200,100,"Do you wish to exit out of Administrator Menu");
+                outtextxy(200,150,"If not Press 5");
+                scanf("%s",&ch1);
+              }while(ch1=='5');
+            break;
            }
           else
            {
