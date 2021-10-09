@@ -12,7 +12,14 @@
   	int DT1,DT2;
   	unsigned int DOB;
   }D[10];
-
+  
+  void read()
+{ 
+  }
+  void write()
+  {
+	}  
+ 
  void Admin()
   {
     char Admin_Name[20],Password[10];
@@ -48,6 +55,7 @@
         }
      }
   }
+  
 
  void User()
   {
