@@ -11,7 +11,7 @@
   	char Address[30];
   	int DT1,DT2;
   	unsigned int DOB;
-  }D;
+  }D[10];
 
  void Admin()
   {
