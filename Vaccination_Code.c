@@ -41,7 +41,7 @@
  
  void Read()
   {
-	char ch3;
+	  char ch3;
     FILE *ptr;
     ptr=fopen("vaccine_details.bin","rb+");
     i=0;
@@ -55,6 +55,105 @@
     fclose(ptr);
     printf("Press Any key\n");
 	scanf("%s",&ch3);
+  }
+
+ void Search()
+  {
+    FILE *ptr;
+    ptr=fopen("vaccine_details.bin","rb+");
+    cleardevice();
+    settextstyle(6,0,3);
+    int cho;
+  	char vId,sch[20];
+  	outtextxy(200,100,"Enter the Option");
+  	outtextxy(200,150,"1.Search by Vaccination ID");
+  	outtextxy(200,200,"2.Search by Name");
+  	scanf("%d",&cho);
+  	switch(cho)
+     {
+       case 1:cleardevice();
+              outtextxy(200,100"Enter the vaccination Id");
+  	          scanf("%d",&vId);
+              cleardevice();
+              i=0;
+              printf("ID\t Name\t\tHouse Name\t  DOB\t   First Dose\t  Second Dose\n");
+  		        while(feof(ptr)==0)
+               {
+  		          if(strcmp(vId,D[i].ID)==0)
+  	             {
+                  fread(&D[i],sizeof(D[i]),1,ptr);
+                  printf("%s\t%s\t\t%s\t%d/%d/%d\t%s\t\t%s\n",D[i].ID,D[i].Name,D[i].Address,D[i].dd,D[i].mm,D[i].yy,D[i].DT1,D[i].DT2);
+	               }
+                i++;
+               }
+  	   case 2:cleardevice();
+         		  outtextxy(200,100,"Enter the Name");
+  		        scanf("%c%[^\n]",sch);
+              printf("ID\t Name\t\tHouse Name\t  DOB\t   First Dose\t  Second Dose\n");
+  		        while(feof(ptr)==0)
+               {
+  			         if(strcmp(sch,D[i].Name)==0)
+  			          {
+  				          fread(&D[i],sizeof(D[i]),1,ptr);
+                    printf("%s\t%s\t\t%s\t%d/%d/%d\t%s\t\t%s\n",D[i].ID,D[i].Name,D[i].Address,D[i].dd,D[i].mm,D[i].yy,D[i].DT1,D[i].DT2);
+			            }  
+               }
+     }
+  }
+  
+ void Display()
+  {
+  	int a,i;
+  	outtextxy(200,100"CHOOSE FROM BELOW");
+  	outtextxy(200,100"\n 1.PARTIALLY VACCINATED LIST");
+  	outtextxy(200,100"\n");
+  	outtextxy(200,100"\n 2.FULLY VACCINATED LIST");
+  	outtextxy(200,100"\n");
+  	outtextxy(200,100"ENTER YOUR OPTION AS 1 OR 2");
+  	scanf("%d",&a);
+  	if(a==1)
+  	outtextxy(200,100"\n PARTIALLY VACCINATED LIST GIVEN BELOW");
+  	for( i=0;i<n;i++)
+  		if(DT1[i]!=/DT2[i])
+  	   {
+  		   outtextxy(200,100"\n%c%d%c",d.name[i],d.ID[i],d.address[i]);
+  		   break
+	     }
+   	else if(a==2)
+	    outtextxy(200,100"\n FULLY VACCINATED LIST GIVEN BELOW");
+  	for( i=0;i<n;i++)
+  	 {
+	    else if DT1[i]=DT2[i]
+       outtextxy(200,100"\n%c%d%c",d.name[i],d.ID[i],d.address[i]);
+     }
+    else 
+     {
+      outtextxy(200,100"\n WRONG INPUT");
+     }
+    outtextxy(200,100"\n Enter any key to continue");
+  }
+  
+ void Del()
+  { 
+	 int i;
+	 char b;
+	 outtextxy(200,100"\n Enter the name to be deleted ");
+	 scanf("%c",&b);
+	 for( i=0;i<n;i++)
+ 	  {
+ 	    if(D[i].Name==b)
+	     {
+		     if(strcmp(d.Name[i],b)==0) 
+          {
+            strcpy(d[i].Name, nullStr); 
+            strcpy(d[i].ID, nullStr); 
+            strcpy(d[i].Address, nullStr); 
+            printf("The ID is Removed.\n");
+            n--;
+            break;
+          }
+       }
+    }
   }
 
  void Admin()
@@ -195,3 +294,4 @@
     initgraph(&gdriver,&gmode,"C:\\Turboc3\\BGI");
     Welcome();
   }
+  
