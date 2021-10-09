@@ -39,6 +39,24 @@
     fclose(ptr);
   }
   
+  void Read()
+  {
+	char ch3;
+    FILE *ptr;
+    ptr=fopen("vaccine_details.bin","rb+");
+    i=0;
+    printf("ID\t Name\t\tHouse Name\t  DOB\t   First Dose\t  Second Dose\n");
+    while(feof(ptr)==0)
+     {
+   	   i++;
+   	   fread(&D[i],sizeof(D[i]),1,ptr);
+       printf("%s\t%s\t\t%s\t%d/%d/%d\t%s\t\t%s\n",D[i].ID,D[i].Name,D[i].Address,D[i].dd,D[i].mm,D[i].yy,D[i].DT1,D[i].DT2);
+     }  
+    fclose(ptr);
+    printf("Press Any key\n");
+	scanf("%s",&ch3);
+  }
+  
  void Admin()
   {
     char Admin_Name[20],Password[10];
