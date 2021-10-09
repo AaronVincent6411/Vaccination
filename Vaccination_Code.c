@@ -12,12 +12,20 @@
   	int DT1,DT2;
   	unsigned int DOB;
   }D[10];
-
+  
+  void read()
+{ 
+  }
+  void write()
+  {
+	}  
+ 
  void Admin()
   {
     cleardevice();
     outtextxy(200,100,"Welcome Aministrator");
   }
+  
 
  void User()
   {
