@@ -6,19 +6,39 @@
   
  struct Details 
   {
-  	int ID;
+  	char ID[5];
   	char Name[20];
   	char Address[30];
-  	char DT1,DT2;
-<<<<<<< HEAD
-  	unsigned int DOB;
-  }D;
-
-=======
-  	char DOB[15];
+  	char DT1[3],DT2[3];
+  	int dd,mm,yy;
   }D[10];
   
->>>>>>> 3976c8a04ed3ea93fe3f053e2b7d21240af40345
+ void Write()
+  {
+    FILE *ptr;
+    int num;
+    ptr=fopen("vaccine_details.bin","wb+");
+    printf("Enter the number of vaccinators :");
+    scanf("%d",&num);
+    for(i=0;i<num;i++)
+     {
+       printf("Enter the ID number :");
+       scanf("%s",D[i].ID);
+       printf("Enter the name :");
+       scanf("%*c%[^\n]",D[i].Name);
+       printf("Enter the House Name :");
+       scanf("%*c%[^\n]",D[i].Address);
+       printf("Enter the Birth Of Date (DD/MM/YYYY) :");
+       scanf("%d%d%d",&D[i].dd,&D[i].mm,&D[i].yy);
+       printf("Have you taken the first dose(Y/N) :");
+       scanf("%s",D[i].DT1);
+       printf("Have you taken the second dose(Y/N) :");
+       scanf("%s",D[i].DT2);
+       fwrite(&D[i],sizeof(D[i]),1,ptr);
+     }
+    fclose(ptr);
+  }
+  
  void Admin()
   {
     char Admin_Name[20],Password[10];
