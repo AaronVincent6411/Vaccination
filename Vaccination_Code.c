@@ -56,6 +56,23 @@
     printf("Press Any key\n");
 	scanf("%s",&ch3);
   }
+  
+  void Append()
+  {
+    FILE *ptr;
+    int i=0;
+    int ch;
+    ptr=fopen("vaccine_details.bin","ab");
+    fseek(ptr,0,SEEK_END);
+    i=ftell(ptr);
+    do
+    {
+       printf("Enter the ID number :");
+       scanf("%s",D[i].ID);
+       printf("Enter the name :");
+       scanf("%*c%[^\n]",D[i].Name);
+       printf("Enter the House Name :");
+       scanf("%*c%[^\n]",D[i].Address);
 
  void Search()
   {
