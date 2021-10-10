@@ -73,6 +73,19 @@
        scanf("%*c%[^\n]",D[i].Name);
        printf("Enter the House Name :");
        scanf("%*c%[^\n]",D[i].Address);
+       printf("Enter the Birth Of Date (DD/MM/YYYY) :");
+       scanf("%d%d%d",&D[i].dd,&D[i].mm,&D[i].yy);
+       printf("Have you taken the first dose(Y/N) :");
+       scanf("%s",D[i].DT1);
+       printf("Have you taken the second dose(Y/N) :");
+       scanf("%s",D[i].DT2);
+       fwrite(&D[i],sizeof(D[i]),1,ptr);
+       i++;
+       printf("Do you want to continue adding vaccinators (1/0) : ");
+       scanf("%d",&ch);
+     }while(ch==1);
+    fclose(ptr);
+  }
 
  void Search()
   {
