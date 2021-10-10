@@ -1,6 +1,8 @@
 #include<stdio.h>
+#include<string.h>
 #include<dos.h>
 #include<graphics.h>
+#include<process.h>
 
   int i,j,k;
   
@@ -12,7 +14,7 @@
   	char DT1[3],DT2[3];
   	int dd,mm,yy;
   }D[10];
-  
+   
  void Write()
   {
     FILE *ptr;
@@ -26,13 +28,13 @@
        scanf("%s",D[i].ID);
        printf("Enter the name :");
        scanf("%*c%[^\n]",D[i].Name);
-       printf("Enter the House Name :");
+       printf("Enter the Place :");
        scanf("%*c%[^\n]",D[i].Address);
-       printf("Enter the Birth Of Date (DD/MM/YYYY) :");
+       printf("Enter the Birth Of Date (DD MM YYYY) :");
        scanf("%d%d%d",&D[i].dd,&D[i].mm,&D[i].yy);
-       printf("Have you taken the first dose(Y/N) :");
+       printf("Have taken the first dose(Y/N) :");
        scanf("%s",D[i].DT1);
-       printf("Have you taken the second dose(Y/N) :");
+       printf("Have taken the second dose(Y/N) :");
        scanf("%s",D[i].DT2);
        fwrite(&D[i],sizeof(D[i]),1,ptr);
      }
@@ -45,56 +47,72 @@
     FILE *ptr;
     ptr=fopen("vaccine_details.bin","rb+");
     i=0;
-    printf("ID\t Name\t\tHouse Name\t  DOB\t   First Dose\t  Second Dose\n");
+    
+    printf("ID\t Name\t");
+    printf(" \t   Place");
+    printf("\t  DOB\t   First Dose\t  Second Dose\n");
     while(feof(ptr)==0)
      {
-   	   i++;
    	   fread(&D[i],sizeof(D[i]),1,ptr);
-       printf("%s\t%s\t\t%s\t%d/%d/%d\t%s\t\t%s\n",D[i].ID,D[i].Name,D[i].Address,D[i].dd,D[i].mm,D[i].yy,D[i].DT1,D[i].DT2);
+       gotoxy(1,6+i);
+       printf("%s",D[i].ID);
+       gotoxy(10,6+i);
+       printf("%s",D[i].Name);
+       gotoxy(25,6+i);
+       printf("%s",D[i].Address);
+       gotoxy(40,6+i);
+       printf("%02d/%02d/%04d",D[i].dd,D[i].mm,D[i].yy);
+       gotoxy(55,6+i);
+       printf("%s",D[i].DT1);
+       gotoxy(70,6+i);
+       printf("%s",D[i].DT2);
+       i++;
      }  
     fclose(ptr);
-    printf("Press Any key\n");
-	scanf("%s",&ch3);
+    printf("\nPress Any key\n");
+	  scanf("%s",&ch3);
   }
   
-  void Append()
+ void Append()
   {
     FILE *ptr;
     int i=0;
-    int ch;
+    char ch;
     ptr=fopen("vaccine_details.bin","ab");
     fseek(ptr,0,SEEK_END);
     i=ftell(ptr);
     do
-    {
+     {
+       cleardevice();
        printf("Enter the ID number :");
        scanf("%s",D[i].ID);
        printf("Enter the name :");
        scanf("%*c%[^\n]",D[i].Name);
-       printf("Enter the House Name :");
+       printf("Enter the Place :");
        scanf("%*c%[^\n]",D[i].Address);
-       printf("Enter the Birth Of Date (DD/MM/YYYY) :");
+       printf("Enter the Birth Of Date (DD MM YYYY) :");
        scanf("%d%d%d",&D[i].dd,&D[i].mm,&D[i].yy);
-       printf("Have you taken the first dose(Y/N) :");
+       printf("Have taken the first dose(Y/N) :");
        scanf("%s",D[i].DT1);
-       printf("Have you taken the second dose(Y/N) :");
+       printf("Have taken the second dose(Y/N) :");
        scanf("%s",D[i].DT2);
        fwrite(&D[i],sizeof(D[i]),1,ptr);
        i++;
-       printf("Do you want to continue adding vaccinators (1/0) : ");
-       scanf("%d",&ch);
-     }while(ch==1);
+       printf("Do you want to continue adding vaccinators (Y/n) : ");
+       scanf("%s",&ch);
+     }while(ch=='Y' || ch=='y');
     fclose(ptr);
   }
 
  void Search()
   {
     FILE *ptr;
+    int cho,flag=0;
+    char vId[3],sch[20];
+    char ch3;
     ptr=fopen("vaccine_details.bin","rb+");
     cleardevice();
     settextstyle(6,0,3);
-    int cho;
-  	char vId,sch[20];
   	outtextxy(200,100,"Enter the Option");
   	outtextxy(200,150,"1.Search by Vaccination ID");
   	outtextxy(200,200,"2.Search by Name");
@@ -102,90 +120,118 @@
   	switch(cho)
      {
        case 1:cleardevice();
-              outtextxy(200,100"Enter the vaccination Id");
-  	          scanf("%d",&vId);
+              outtextxy(200,100,"Enter the vaccination Id");
+  	          scanf("%s",vId);
               cleardevice();
               i=0;
-              printf("ID\t Name\t\tHouse Name\t  DOB\t   First Dose\t  Second Dose\n");
+              printf("ID\t Name\t     Place\t  DOB\t   First Dose\t  Second Dose\n");
   		        while(feof(ptr)==0)
                {
-  		          if(strcmp(vId,D[i].ID)==0)
-  	             {
-                  fread(&D[i],sizeof(D[i]),1,ptr);
-                  printf("%s\t%s\t\t%s\t%d/%d/%d\t%s\t\t%s\n",D[i].ID,D[i].Name,D[i].Address,D[i].dd,D[i].mm,D[i].yy,D[i].DT1,D[i].DT2);
-	               }
-                i++;
+                 fread(&D[i],sizeof(D[i]),1,ptr);
+  		           if(strcmpi(D[i].ID,vId)==0)
+                  {
+  	                printf("%s\t%s\t\t%s\t%d/%d/%d\t%s\t\t%s\n",D[i].ID,D[i].Name,D[i].Address,D[i].dd,D[i].mm,D[i].yy,D[i].DT1,D[i].DT2);
+                    flag=1;
+                  }
+	               i++;
                }
+              printf("Press Any key\n");
+	            scanf("%s",&ch3);
+              break;
   	   case 2:cleardevice();
          		  outtextxy(200,100,"Enter the Name");
-  		        scanf("%c%[^\n]",sch);
-              printf("ID\t Name\t\tHouse Name\t  DOB\t   First Dose\t  Second Dose\n");
+  		        scanf("%s",sch);
+              i=0;
+              printf("ID\t Name\t    Place\t  DOB\t   First Dose\t  Second Dose\n");
   		        while(feof(ptr)==0)
                {
-  			         if(strcmp(sch,D[i].Name)==0)
-  			          {
-  				          fread(&D[i],sizeof(D[i]),1,ptr);
-                    printf("%s\t%s\t\t%s\t%d/%d/%d\t%s\t\t%s\n",D[i].ID,D[i].Name,D[i].Address,D[i].dd,D[i].mm,D[i].yy,D[i].DT1,D[i].DT2);
-			            }  
+                 fread(&D[i],sizeof(D[i]),1,ptr);
+  			         if(strcmpi(D[i].Name,sch)==0)
+                  {
+  			            printf("%s\t%s\t\t%s\t%d/%d/%d\t%s\t\t%s\n",D[i].ID,D[i].Name,D[i].Address,D[i].dd,D[i].mm,D[i].yy,D[i].DT1,D[i].DT2);
+                    flag=1;
+                  }
+			           i++;
                }
+              printf("Press Any key\n");
+	            scanf("%s",&ch3);
+              break;
      }
-  }
-  
- void Display()
-  {
-  	int a,i;
-  	outtextxy(200,100"CHOOSE FROM BELOW");
-  	outtextxy(200,100"\n 1.PARTIALLY VACCINATED LIST");
-  	outtextxy(200,100"\n");
-  	outtextxy(200,100"\n 2.FULLY VACCINATED LIST");
-  	outtextxy(200,100"\n");
-  	outtextxy(200,100"ENTER YOUR OPTION AS 1 OR 2");
-  	scanf("%d",&a);
-  	if(a==1)
-  	outtextxy(200,100"\n PARTIALLY VACCINATED LIST GIVEN BELOW");
-  	for( i=0;i<n;i++)
-  		if(DT1[i]!=/DT2[i])
-  	   {
-  		   outtextxy(200,100"\n%c%d%c",d.name[i],d.ID[i],d.address[i]);
-  		   break
-	     }
-   	else if(a==2)
-	    outtextxy(200,100"\n FULLY VACCINATED LIST GIVEN BELOW");
-  	for( i=0;i<n;i++)
-  	 {
-	    else if DT1[i]=DT2[i]
-       outtextxy(200,100"\n%c%d%c",d.name[i],d.ID[i],d.address[i]);
-     }
-    else 
+    if(flag==0)
      {
-      outtextxy(200,100"\n WRONG INPUT");
+       cleardevice();
+       outtextxy(100,100,"Couldn't find");
      }
-    outtextxy(200,100"\n Enter any key to continue");
   }
   
- void Del()
-  { 
-	 int i;
-	 char b;
-	 outtextxy(200,100"\n Enter the name to be deleted ");
-	 scanf("%c",&b);
-	 for( i=0;i<n;i++)
- 	  {
- 	    if(D[i].Name==b)
-	     {
-		     if(strcmp(d.Name[i],b)==0) 
-          {
-            strcpy(d[i].Name, nullStr); 
-            strcpy(d[i].ID, nullStr); 
-            strcpy(d[i].Address, nullStr); 
-            printf("The ID is Removed.\n");
-            n--;
-            break;
-          }
-       }
-    }
+ void Vacc_Display()
+  {
+    FILE *ptr;
+  	int a;
+    char ch3;
+    cleardevice();
+    ptr=fopen("vaccine_details.bin","rb+");
+    settextstyle(6,0,2);
+  	outtextxy(200,50,"Enter the Option");
+  	outtextxy(200,100,"1.Partially Vaccinated List");
+  	outtextxy(200,150,"2.Fully Vaccinated list");
+  	scanf("%d",&a);
+  	switch(a)
+     {
+       case 1:cleardevice();
+              i=0;
+              printf("Partially Vaccinated List\n");
+              printf("ID\t Name\t    Place\t  DOB\t   First Dose\t  Second Dose\n");
+  		        while(feof(ptr)==0)
+               {
+   	             fread(&D[i],sizeof(D[i]),1,ptr);
+                 if((strcmpi(D[i].DT1,"Y")==0) && (strcmpi(D[i].DT2,"N")==0))
+                  printf("%s\t%s\t\t%s\t%d/%d/%d\t%s\t\t%s\n",D[i].ID,D[i].Name,D[i].Address,D[i].dd,D[i].mm,D[i].yy,D[i].DT1,D[i].DT2);
+                 i++;
+               }
+              printf("Press Any key\n");
+	            scanf("%s",&ch3);
+              break;
+       case 2:cleardevice();
+              i=0;
+              printf("Fully Vaccinated List\n");
+              printf("ID\t Name\t    Place\t  DOB\t   First Dose\t  Second Dose\n");
+  		        while(feof(ptr)==0)
+               {
+   	             fread(&D[i],sizeof(D[i]),1,ptr);
+                 if((strcmpi(D[i].DT1,"Y")==0) && (strcmpi(D[i].DT2,"Y")==0))
+                  printf("%s\t%s\t\t%s\t%d/%d/%d\t%s\t\t%s\n",D[i].ID,D[i].Name,D[i].Address,D[i].dd,D[i].mm,D[i].yy,D[i].DT1,D[i].DT2);
+                 i++;
+               }
+              printf("Press Any key\n");
+	            scanf("%s",&ch3);
+              break;
+     }        
+    fclose(ptr);
   }
 
+ void Del()
+  { 
+    char del[5];
+    FILE *ptr,*temp;
+    cleardevice();
+    temp=fopen("vaccine_details_temp.bin","wb+");
+	  outtextxy(100,100,"Do you want to delete entire data");
+    outtextxy(100,150,"Enter 'Delete' to delete");
+	  scanf("%s",del);
+    i=0;
+	  if(strcmpi(del,"Delete")==0)
+     {
+       rename("vaccine_details_temp.bin","vaccine_details.bin");
+       remove("vaccine_details.bin");
+       outtextxy(200,200,"Record Deleted");
+     }
+    else
+    outtextxy(100,100,"Entire Data is safe");
+    fclose(temp);
+    delay(1000);
+  }
+ 
  void Admin()
   {
     int op1;
@@ -197,89 +243,110 @@
     delay(1000);
     cleardevice();
     settextstyle(5,0,5);
-    outtextxy(200,100,"Enter the Username");
-    scanf("%s",Admin_Name);
-    if(strcmp(Admin_Name,"AAAE")==0)
+    for(i=0;i<2;i++)
      {
-       for(i=0;i<2;i++)
+       outtextxy(200,100,"Enter the Username");
+       scanf("%s",Admin_Name);
+       if(strcmp(Admin_Name,"1a2b3c4d")==0)
         {
-          cleardevice();
-          settextstyle(5,0,5);
-          outtextxy(200,100,"Enter the Password");
-          scanf("%s",Password);
-          if(strcmp(Password,"1a2b3c4d")==0)
-           {
-             do
-              {
-                cleardevice();
-                settextstyle(6,0,5);
-                outtextxy(200,50,"Main Menu");
-                outtextxy(200,100,"1.Write Data");
-                outtextxy(200,150,"2.Display Details");
-                outtextxy(200,200,"3.Exit");
-                scanf("%d",&op1);
-			       	  settextstyle(6,0,2);
-                cleardevice();
-                switch(op1)
-                 {
-                   case 1:outtextxy(100,100,"Do You Wish to Continue\n Existing Data will be erased (Y/n)");
-                          scanf("%s",&ch2);
-						  cleardevice();
-                          if(ch2=='y'||ch2=='Y')
-                           Write();
-                          break;
-                   case 2:Read();
-                          break;
-                   case 3:exit(0);
-                 }
-                delay(1000);
-                cleardevice();
-                outtextxy(200,100,"Do you wish to exit out of Administrator Menu");
-                outtextxy(200,150,"If not Press 5");
-                scanf("%s",&ch1);
-              }while(ch1=='5');
-            break;
-           }
-          else
-           {
-             cleardevice();
-             settextstyle(6,0,5);
-             outtextxy(200,100,"Wrong Password");
-             if(i==0)
-              outtextxy(200,150,"Try Again");
-             delay(1000);
-           }
-        }
+         for(i=0;i<2;i++)
+          {
+            cleardevice();
+            settextstyle(5,0,5);
+            outtextxy(200,100,"Enter the Password");
+            scanf("%s",Password);
+            if(strcmp(Password,"1a2b3c4d")==0)
+             {
+               do
+                {
+                  cleardevice();
+                  settextstyle(6,0,2);
+                  outtextxy(200,50,"Main Menu");
+                  outtextxy(150,100,"1.Write Data");
+                  outtextxy(150,150,"2.Display Details");
+                  outtextxy(150,200,"3.Vaccination Details (Partial/Fully List)");
+                  outtextxy(150,250,"4.Search for Particular Detail");
+                  outtextxy(150,300,"5.Append Data");
+                  outtextxy(150,350,"6.Delete entire data");
+                  outtextxy(150,400,"7.Exit");
+                  scanf("%d",&op1);
+			       	    settextstyle(6,0,2);
+                  cleardevice();
+                  switch(op1)
+                   {
+                     case 1:outtextxy(100,100,"Do You Wish to Continue\n Existing Data will be erased (Y/n)");
+                           scanf("%s",&ch2);
+						               cleardevice();
+                           if(ch2=='y'||ch2=='Y')
+                            Write();
+                           cleardevice(); 
+                           outtextxy(100,100,"Data Entered Successfully");
+                           break;
+                     case 2:Read();
+                            break;
+                     case 3:Vacc_Display();
+                            break;
+                     case 4:Search();
+                            break;
+                     case 5:Append();
+                            break;
+                     case 6:Del();
+                            break;
+                     case 7:exit(0);
+                   }
+                  delay(1000);
+                  cleardevice();
+                  outtextxy(200,100,"Do you wish to exit out of Administrator Menu");
+                  outtextxy(200,150,"If not Press 5");
+                  scanf("%s",&ch1);
+                }while(ch1=='5');
+              exit(0);
+            }
+           else
+            {
+              cleardevice();
+              settextstyle(6,0,5);
+              outtextxy(200,100,"Wrong Password");
+              if(i==0)
+               outtextxy(200,150,"Try Again");
+              delay(1000);
+            }
+          }
+        break;
+       }
+      else
+       {
+         cleardevice();
+         settextstyle(6,0,5);
+         outtextxy(200,100,"Wrong Username");
+         if(i==0)
+          outtextxy(200,150,"Try Again");
+         delay(1000);
+         cleardevice();
+       }
      }
-  }
-  
-
- void User()
-  {
-
   }
 
  void Display()
   {
     int op;
+    char ch3;
     setbkcolor(EGA_BLUE);
     setcolor(WHITE);
     settextstyle(7,0,7);
     outtextxy(150,50,"Main Menu");
     settextstyle(6,0,2);
     outtextxy(200,150,"1.Administrator");
-    outtextxy(200,200,"2.User");
-    outtextxy(200,250,"3.Exit");
+    outtextxy(200,200,"2.Exit");
     scanf("%d",&op);
     switch(op)
      {
        case 1:Admin();
               break;
-       case 2:User();
-              break;
        default:exit(0);
               break;
      }
+    cleardevice();
   }
 
  void Loading()
